@@ -1,0 +1,127 @@
+<div class="row g-4 mb-5 reveal">
+    <div class="col-lg-4">
+        <div class="glass-panel p-5 text-center h-100 bg-gradient shadow-lg text-white"
+            style="background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);">
+            <div class="display-1 mb-3">🔥</div>
+            <h1 class="display-3 fw-bold mb-0 counter" data-target="<%= streak %>">0</h1>
+            <h4 class="outfit mb-3">Day Study Streak</h4>
+            <p class="opacity-75">You're in the top 5% of learners this week. Keep the fire burning!</p>
+            <div class="mt-4 p-3 rounded-4 bg-white bg-opacity-20 backdrop-blur fw-bold">
+                Target: 14 Days to Nex Level
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="glass-panel p-5 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="outfit fw-bold mb-1">Global Progress</h2>
+                    <p class="text-muted mb-0">You've mastered <%= progressPercent %>% of the available content library.
+                    </p>
+                </div>
+                <div class="fs-1 text-primary"><i class="fas fa-chart-line-up"></i></div>
+            </div>
+
+            <div class="progress rounded-pill bg-light mb-5 shadow-inner" style="height: 30px;">
+                <div class="progress-bar bg-gradient shadow-lg" style="width: <%= progressPercent %>%">
+                    <span class="fw-bold">
+                        <%= progressPercent %>%
+                    </span>
+                </div>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-light border reveal" data-reveal-delay="200">
+                        <h2 class="fw-bold mb-0 counter" data-target="<%= bookmarks.length %>">0</h2>
+                        <small class="text-muted text-uppercase fw-bold">Bookmarks</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-light border reveal" data-reveal-delay="300">
+                        <h2 class="fw-bold mb-0 counter" data-target="<%= recentTopics.length %>">0</h2>
+                        <small class="text-muted text-uppercase fw-bold">Active Modules</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-light border reveal" data-reveal-delay="400">
+                        <h2 class="fw-bold mb-0 counter" data-target="12">0</h2>
+                        <small class="text-muted text-uppercase fw-bold">Certificates</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-5">
+    <div class="col-lg-6 reveal">
+        <h4 class="outfit fw-bold mb-4"><i class="fas fa-heart text-danger me-2"></i>Favorite Paths</h4>
+        <div class="d-flex flex-column gap-3">
+            <% bookmarks.forEach((b, index)=> { %>
+                <a href="/study/topics/<%= b.topic_id %>" class="text-decoration-none reveal"
+                    data-reveal-delay="<%= index * 100 %>">
+                    <div
+                        class="glass-panel p-4 hover-lift-glow d-flex align-items-center gap-4 border-start border-5 border-danger">
+                        <div class="bg-danger bg-opacity-10 p-3 rounded-4">
+                            <i class="fas fa-bookmark text-danger fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold text-main">
+                                <%= b.topic_name %>
+                            </h6>
+                            <p class="text-muted small mb-0">
+                                <%= b.subject_name %>
+                            </p>
+                        </div>
+                        <i class="fas fa-chevron-right text-muted opacity-25"></i>
+                    </div>
+                </a>
+                <% }) %>
+                    <% if (bookmarks.length===0) { %>
+                        <div class="glass-panel p-5 text-center text-muted">No bookmarks yet. Explore subjects to save
+                            topics.</div>
+                        <% } %>
+        </div>
+    </div>
+
+    <div class="col-lg-6 reveal">
+        <h4 class="outfit fw-bold mb-4"><i class="fas fa-history text-primary me-2"></i>Continue Learning</h4>
+        <div class="d-flex flex-column gap-3">
+            <% recentTopics.forEach((t, index)=> { %>
+                <a href="/study/topics/<%= t.topic_id %>" class="text-decoration-none reveal"
+                    data-reveal-delay="<%= index * 100 %>">
+                    <div
+                        class="glass-panel p-4 hover-lift-glow d-flex align-items-center gap-4 border-start border-5 border-primary">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-4">
+                            <i class="fas fa-play text-primary fs-4"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold text-main">
+                                <%= t.topic_name %>
+                            </h6>
+                            <p class="text-muted small mb-0">
+                                <%= t.subject_name %>
+                            </p>
+                        </div>
+                        <span
+                            class="badge rounded-pill <%= t.status === 'completed' ? 'bg-success' : 'bg-primary' %> bg-opacity-10 text-<%= t.status === 'completed' ? 'success' : 'primary' %> px-3 mb-2">
+                            <%= t.status==='completed' ? 'Mastered' : 'Progress' %>
+                        </span>
+                    </div>
+                </a>
+                <% }) %>
+                    <% if (recentTopics.length===0) { %>
+                        <div class="glass-panel p-5 text-center text-muted">No recent activity. Pick a subject to start
+                            learning!</div>
+                        <% } %>
+        </div>
+    </div>
+</div>
+
+<style>
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    }
+</style>

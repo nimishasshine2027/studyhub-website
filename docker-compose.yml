@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+      - SESSION_SECRET=studyhub_prod_secret
+      - DB_PATH=./database.sqlite
+    restart: always

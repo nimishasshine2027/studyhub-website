@@ -1,0 +1,150 @@
+<div class="row g-4 mb-5 reveal">
+    <div class="col-md-3">
+        <div class="glass-panel p-4 text-center border-bottom border-4 border-primary">
+            <h6 class="text-muted text-uppercase small fw-bold mb-2">Active Students</h6>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.users %>">0</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 text-center border-bottom border-4 border-secondary">
+            <h6 class="text-muted text-uppercase small fw-bold mb-2">Total Subjects</h6>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.subjects %>">0</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 text-center border-bottom border-4 border-accent">
+            <h6 class="text-muted text-uppercase small fw-bold mb-2">Total Topics</h6>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.topics %>">0</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 text-center border-bottom border-4 border-success">
+            <h6 class="text-muted text-uppercase small fw-bold mb-2">Resources</h6>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.resources %>">0</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row g-5">
+    <div class="col-lg-4">
+        <div class="glass-panel p-4 mb-4 reveal">
+            <h5 class="outfit fw-bold mb-4"><i class="fas fa-plus-circle text-primary me-2"></i>New Subject</h5>
+            <form action="/admin/subjects" method="POST">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Subject Name</label>
+                    <input type="text" name="name" class="form-control rounded-pill px-4"
+                        placeholder="e.g. Quantum Physics" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Description</label>
+                    <textarea name="description" class="form-control rounded-4 px-4" rows="3"
+                        placeholder="Brief overview..."></textarea>
+                </div>
+                <div class="row g-2 mb-4">
+                    <div class="col-8">
+                        <label class="form-label small fw-bold">Icon Class</label>
+                        <input type="text" name="icon" class="form-control rounded-pill" placeholder="fas fa-atom"
+                            value="fas fa-book">
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label small fw-bold">Color</label>
+                        <input type="color" name="color" class="form-control form-control-color rounded-pill w-100"
+                            value="#6366f1">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 shadow">Create Subject</button>
+            </form>
+        </div>
+
+        <div class="glass-panel p-4 reveal" data-reveal-delay="200">
+            <h5 class="outfit fw-bold mb-4"><i class="fas fa-folder-plus text-secondary me-2"></i>New Topic</h5>
+            <form action="/admin/topics" method="POST">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Belongs to</label>
+                    <select name="subject_id" class="form-select rounded-pill px-4" required>
+                        <% subjects.forEach(s=> { %>
+                            <option value="<%= s.id %>">
+                                <%= s.name %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Topic Title</label>
+                    <input type="text" name="name" class="form-control rounded-pill px-4" required>
+                </div>
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Difficulty</label>
+                        <select name="difficulty" class="form-select rounded-pill">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Roadmap Pos</label>
+                        <input type="number" name="roadmap_order" class="form-control rounded-pill" value="1">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary w-100 rounded-pill py-2 shadow">Add Topic</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="glass-panel p-4 reveal">
+            <h5 class="outfit fw-bold mb-4 d-flex justify-content-between">
+                <span><i class="fas fa-list text-accent me-2"></i>Subject Library</span>
+                <span class="badge bg-primary rounded-pill small">
+                    <%= subjects.length %> Total
+                </span>
+            </h5>
+            <div class="table-responsive">
+                <table class="table table-borderless align-middle">
+                    <thead class="text-muted small">
+                        <tr>
+                            <th>IDENTIFIER</th>
+                            <th>ICON</th>
+                            <th>NAME</th>
+                            <th>COLOR</th>
+                            <th class="text-end">MANAGEMENT</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-main">
+                        <% subjects.forEach(s=> { %>
+                            <tr class="border-bottom border-light">
+                                <td class="font-monospace">#SUB-<%= s.id %>
+                                </td>
+                                <td>
+                                    <div class="bg-light p-2 rounded-3 text-center"
+                                        style="width: 40px; color: <%= s.color %>;">
+                                        <i class="<%= s.icon %>"></i>
+                                    </div>
+                                </td>
+                                <td class="fw-bold">
+                                    <%= s.name %>
+                                </td>
+                                <td>
+                                    <div class="rounded-circle shadow-sm"
+                                        style="width: 24px; height: 24px; background: <%= s.color %>;"></div>
+                                </td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button class="btn btn-sm btn-glass rounded-pill px-3"><i
+                                                class="fas fa-edit me-1"></i> Edit</button>
+                                        <form action="/admin/subjects/<%= s.id %>?_method=DELETE" method="POST"
+                                            class="d-inline">
+                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-3"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

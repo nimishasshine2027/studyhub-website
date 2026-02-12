@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm glass-nav py-3">
+    <div class="container border-0">
+        <a class="navbar-brand fw-bold fs-3 text-gradient outfit" href="/">
+            <i class="fas fa-brain me-2"></i>Study Hub
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-5">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 <%= (locals.path || '/') === '/' ? 'active fw-bold' : '' %>"
+                        href="/">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 <%= (locals.path || '').startsWith('/study/subjects') ? 'active fw-bold' : '' %>"
+                        href="/study/subjects">Subjects</a>
+                </li>
+                <% if (locals.user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 <%= (locals.path || '') === '/dashboard' ? 'active fw-bold' : '' %>"
+                            href="/dashboard">Dashboard</a>
+                    </li>
+                    <% } %>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+                <!-- Theme Toggle -->
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input my-theme-switch" type="checkbox" id="theme-toggle">
+                    <label class="form-check-label" for="theme-toggle">
+                        <i class="fas fa-moon text-muted small"></i>
+                    </label>
+                </div>
+
+                <% if (locals.user) { %>
+                    <div class="dropdown">
+                        <button class="btn btn-primary rounded-pill d-flex align-items-center py-2 px-3" type="button"
+                            data-bs-toggle="dropdown">
+                            <span class="me-2 d-none d-sm-inline">
+                                <%= locals.user.name %>
+                            </span>
+                            <i class="fas fa-user-circle fs-5"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end glass-panel border-0 mt-2 p-2 shadow-lg">
+                            <% if (locals.user.role==='admin' ) { %>
+                                <li><a class="dropdown-item rounded-3 mb-1 py-2" href="/admin"><i
+                                            class="fas fa-cog me-2"></i>Admin Center</a></li>
+                                <li>
+                                    <hr class="dropdown-divider opacity-10">
+                                </li>
+                                <% } %>
+                                    <li><a class="dropdown-item rounded-3 py-2 text-danger" href="/auth/logout"><i
+                                                class="fas fa-power-off me-2"></i>Sign Out</a></li>
+                        </ul>
+                    </div>
+                    <% } else { %>
+                        <a href="/auth/login" class="nav-link fw-bold text-primary d-none d-sm-block">Login</a>
+                        <a href="/auth/register" class="btn btn-primary rounded-pill px-4 shadow">Get Started</a>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .my-theme-switch {
+        width: 3rem !important;
+        height: 1.5rem !important;
+        cursor: pointer;
+    }
+
+    .active.fw-bold {
+        position: relative;
+        color: var(--primary) !important;
+    }
+
+    .active.fw-bold::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 30%;
+        width: 40%;
+        height: 3px;
+        background: var(--vibrant-gradient);
+        border-radius: 10px;
+    }
+</style>

@@ -1,0 +1,26 @@
+<div class="row align-items-center mb-5 reveal">
+    <div class="col-md-8">
+        <h2 class="outfit fw-bold text-gradient display-5 mb-2">Explore Subjects</h2>
+        <p class="text-muted lead">Choose a path and start mastering new concepts today.</p>
+    </div>
+    <div class="col-md-4 text-md-end">
+        <div class="glass-panel p-2 d-inline-flex gap-2">
+            <button class="btn btn-primary rounded-pill btn-sm px-4">All</button>
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-4">Popular</button>
+        </div>
+    </div>
+</div>
+
+<div class="row reveal">
+    <% subjects.forEach((subject, index)=> { %>
+        <%- include('../partials/card', { type: 'subject' , item: subject, delay: index * 100 }) %>
+            <% }) %>
+</div>
+
+<section class="mt-5 py-5 reveal">
+    <div class="glass-panel p-5 text-center bg-gradient-light shadow-lg">
+        <h3 class="outfit fw-bold mb-3">Didn't find what you're looking for?</h3>
+        <p class="text-muted mb-4">Suggest a new subject and our community will build a roadmap for it!</p>
+        <button class="btn btn-secondary rounded-pill px-5">Suggest Subject</button>
+    </div>
+</section>

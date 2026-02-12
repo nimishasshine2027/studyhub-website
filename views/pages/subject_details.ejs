@@ -1,0 +1,125 @@
+<nav aria-label="breadcrumb" class="mb-5 reveal">
+    <ol class="breadcrumb glass-panel p-3 px-4 rounded-pill">
+        <li class="breadcrumb-item"><a href="/study/subjects" class="text-decoration-none">Subjects</a></li>
+        <li class="breadcrumb-item active fw-bold text-primary" aria-current="page">
+            <%= subject.name %>
+        </li>
+    </ol>
+</nav>
+
+<div class="row g-5">
+    <div class="col-lg-8">
+        <div class="subject-header glass-panel p-5 mb-5 reveal" style="border-left: 10px solid <%= subject.color %>;">
+            <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+                <div class="fs-1 bg-white bg-opacity-10 p-4 rounded-4 shadow-sm" style="color: <%= subject.color %>;">
+                    <i class="<%= subject.icon %>"></i>
+                </div>
+                <div class="text-center text-md-start">
+                    <h1 class="display-5 fw-bold outfit mb-2">
+                        <%= subject.name %>
+                    </h1>
+                    <p class="text-muted mb-0">
+                        <%= subject.description %>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="outfit fw-bold mb-5 reveal"><i class="fas fa-map-marked-alt text-primary me-2"></i>Learning Path</h3>
+
+        <div class="roadmap-container-vibrant position-relative ps-2 reveal">
+            <div class="roadmap-line-vibrant"></div>
+            <% topics.forEach((topic, index)=> { %>
+                <div class="roadmap-step-vibrant <%= topic.status === 'completed' ? 'completed' : '' %> reveal"
+                    data-reveal-delay="<%= index * 150 %>">
+                    <div class="step-icon">
+                        <% if (topic.status==='completed' ) { %>
+                            <i class="fas fa-check"></i>
+                            <% } else { %>
+                                <span class="small fw-bold">
+                                    <%= index + 1 %>
+                                </span>
+                                <% } %>
+                    </div>
+                    <div class="glass-card hover-glow-border">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="outfit fw-bold mb-1">
+                                    <%= topic.name %>
+                                </h5>
+                                <p class="text-muted small mb-0">
+                                    <%= topic.description.substring(0, 100) %>...
+                                </p>
+                            </div>
+                            <span class="badge badge-<%= topic.difficulty %> rounded-pill px-3 py-2">
+                                <%= topic.difficulty.toUpperCase() %>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="/study/topics/<%= topic.id %>"
+                                class="btn btn-outline-primary btn-sm rounded-pill px-4">Enter Step</a>
+                            <% if (topic.status==='completed' ) { %>
+                                <span class="text-success small fw-bold"><i class="fas fa-magic me-1"></i>
+                                    Mastered</span>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="sticky-top" style="top: 100px;">
+            <div class="glass-panel p-4 mb-4 reveal">
+                <h5 class="outfit fw-bold mb-4"><i class="fas fa-chart-line text-primary me-2"></i>Subject Progress</h5>
+                <% const completed=topics.filter(t=> t.status === 'completed').length;
+                    const percent = topics.length > 0 ? Math.round((completed / topics.length) * 100) : 0;
+                    %>
+                    <div class="position-relative text-center mb-4">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle cx="75" cy="75" r="65" fill="none" stroke="var(--glass-border)" stroke-width="12">
+                            </circle>
+                            <circle cx="75" cy="75" r="65" fill="none" stroke="var(--primary)" stroke-width="12"
+                                stroke-dasharray="408.4" stroke-dashoffset="<%= 408.4 - (408.4 * percent / 100) %>"
+                                stroke-linecap="round" transform="rotate(-90 75 75)"
+                                style="transition: stroke-dashoffset 1s ease-out;">
+                            </circle>
+                        </svg>
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <h2 class="mb-0 fw-bold outfit">
+                                <%= percent %>%
+                            </h2>
+                        </div>
+                    </div>
+                    <p class="small text-muted text-center">
+                        <%= completed %> of <%= topics.length %> modules completed.
+                    </p>
+                    <button class="btn btn-primary w-100 rounded-pill mt-3 shadow">Continue Learning</button>
+            </div>
+
+            <div class="glass-panel p-4 reveal">
+                <h5 class="outfit fw-bold mb-3"><i class="fas fa-award text-warning me-2"></i>Roadmap Badge</h5>
+                <div class="text-center py-3">
+                    <div class="fs-1 mb-2 <%= percent === 100 ? 'text-warning' : 'text-muted opacity-25' %>">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <p class="small text-muted">
+                        <%= percent===100 ? 'Roadmap Complete!' : 'Complete the roadmap to earn your badge.' %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-glow-border:hover {
+        border-color: var(--primary);
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    }
+
+    .roadmap-step-vibrant.completed .glass-card {
+        border-right: 5px solid #10b981;
+    }
+</style>

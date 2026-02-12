@@ -1,0 +1,241 @@
+<nav aria-label="breadcrumb" class="mb-5 reveal">
+    <ol class="breadcrumb glass-panel p-3 px-4 rounded-pill">
+        <li class="breadcrumb-item"><a href="/study/subjects" class="text-decoration-none">Subjects</a></li>
+        <li class="breadcrumb-item"><a href="/study/subjects/<%= topic.subject_id %>" class="text-decoration-none">
+                <%= topic.subject_name %>
+            </a></li>
+        <li class="breadcrumb-item active fw-bold text-primary" aria-current="page">
+            <%= topic.name %>
+        </li>
+    </ol>
+</nav>
+
+<div class="row g-5">
+    <div class="col-lg-8">
+        <div class="glass-panel p-5 mb-5 reveal">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-4 mb-4">
+                <div>
+                    <span class="badge badge-<%= topic.difficulty %> rounded-pill px-4 py-2 mb-3 shadow-sm">
+                        <i class="fas fa-signal me-2"></i>
+                        <%= topic.difficulty.toUpperCase() %> LEVEL
+                    </span>
+                    <h1 class="display-4 fw-bold outfit mb-2">
+                        <%= topic.name %>
+                    </h1>
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="text-warning fs-5">
+                            <i class="fas fa-star"></i>
+                            <%= avgRating %> <span class="text-muted small fw-normal">/ 5.0</span>
+                        </div>
+                        <div class="vr"></div>
+                        <div class="text-muted small"><i class="fas fa-users me-1"></i> 1.2k Students Learned</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <button class="btn btn-glass p-3 rounded-circle shadow-sm hover-pop"
+                        onclick="toggleBookmark(<%= topic.id %>)">
+                        <i id="bookmark-icon" class="<%= isBookmarked ? 'fas' : 'far' %> fa-heart text-danger fs-4"></i>
+                    </button>
+                    <a href="/study/topics/<%= topic.id %>/revision" target="_blank"
+                        class="btn btn-primary d-flex align-items-center px-4 shadow-lg">
+                        <i class="fas fa-bolt me-2 pulse"></i>Quick Revision
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-4 bg-light mb-5 border-start border-4 border-primary">
+                <h5 class="outfit fw-bold mb-3"><i class="fas fa-quote-left me-2 opacity-50"></i>Conceptual Overview
+                </h5>
+                <p class="text-muted lead fs-6 mb-0">
+                    <%= topic.description %>
+                </p>
+            </div>
+
+            <h4 class="outfit fw-bold mb-4">Curated Resources</h4>
+            <div class="row g-3 reveal">
+                <% resources.forEach(res=> { %>
+                    <div class="col-md-6">
+                        <a href="<%= res.url %>" target="_blank" class="text-decoration-none">
+                            <div class="glass-panel p-4 h-100 hover-lift-glow">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="fs-2 text-secondary">
+                                        <% if (res.type==='video' ) { %> <i class="fab fa-youtube text-danger"></i>
+                                            <% } else if (res.type==='pdf' ) { %> <i
+                                                    class="fas fa-file-pdf text-warning"></i>
+                                                <% } else { %> <i class="fas fa-link text-primary"></i>
+                                                    <% } %>
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <h6 class="mb-0 fw-bold text-main text-truncate">
+                                            <%= res.title %>
+                                        </h6>
+                                        <small class="text-muted text-uppercase tracking-tighter">
+                                            <%= res.type %>
+                                        </small>
+                                    </div>
+                                    <i class="fas fa-external-link-alt ms-auto text-muted opacity-50"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+        <!-- Rating Section -->
+        <section class="reveal">
+            <div class="glass-panel p-5 mb-4">
+                <h4 class="outfit fw-bold mb-4">How was this topic?</h4>
+                <div class="d-flex align-items-center gap-4 mb-4">
+                    <div class="star-rating fs-2 text-warning d-flex gap-1" id="star-input">
+                        <i class="far fa-star cursor-pointer" data-val="1"></i>
+                        <i class="far fa-star cursor-pointer" data-val="2"></i>
+                        <i class="far fa-star cursor-pointer" data-val="3"></i>
+                        <i class="far fa-star cursor-pointer" data-val="4"></i>
+                        <i class="far fa-star cursor-pointer" data-val="5"></i>
+                    </div>
+                    <span class="text-muted fw-bold" id="rating-text">Select stars</span>
+                </div>
+                <div class="input-group glass-panel border-0 p-2">
+                    <input type="text" class="form-control border-0 bg-transparent px-3"
+                        placeholder="Share your thoughts with other students...">
+                    <button class="btn btn-primary rounded-pill px-4 ms-2">Post Rating</button>
+                </div>
+            </div>
+
+            <div class="ratings-list reveal">
+                <% ratings.forEach(rating=> { %>
+                    <div class="glass-panel p-4 mb-3 border-0 shadow-sm border-bottom border-3 border-primary-subtle">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                    style="width: 32px; height: 32px;">
+                                    <%= rating.user_name.charAt(0) %>
+                                </div>
+                                <span class="fw-bold">
+                                    <%= rating.user_name %>
+                                </span>
+                            </div>
+                            <div class="text-warning small">
+                                <% for(let i=0; i<5; i++) { %>
+                                    <i class="<%= i < rating.rating ? 'fas' : 'far' %> fa-star"></i>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0">
+                            <%= rating.comment %>
+                        </p>
+                    </div>
+                    <% }) %>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="sticky-top" style="top: 100px;">
+            <div class="glass-panel p-4 mb-4 reveal">
+                <h5 class="outfit fw-bold mb-4"><i class="fas fa-project-diagram text-primary me-2"></i>Next Up</h5>
+                <div class="list-group list-group-flush gap-3">
+                    <% recommendations.forEach(rec=> { %>
+                        <a href="/study/topics/<%= rec.id %>"
+                            class="list-group-item list-group-item-action border-0 glass-panel p-3 hover-lift-glow">
+                            <h6 class="mb-1 fw-bold">
+                                <%= rec.name %>
+                            </h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge badge-<%= rec.difficulty %> rounded-pill small">
+                                    <%= rec.difficulty %>
+                                </span>
+                                <i class="fas fa-arrow-right text-primary opacity-50"></i>
+                            </div>
+                        </a>
+                        <% }) %>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 bg-primary bg-opacity-10 border-primary border-opacity-25 reveal">
+                <div class="text-center py-4">
+                    <div class="fs-1 text-primary mb-3">
+                        <i class="fas fa-check-double bounce"></i>
+                    </div>
+                    <h5 class="outfit fw-bold">Finished learning?</h5>
+                    <p class="text-muted small mb-4">Mark this topic as complete to level up your subject streak!</p>
+                    <button class="btn btn-primary w-100 rounded-pill py-3 shadow-lg fw-bold">MARK AS COMPLETED</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-lift-glow:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+    }
+
+    .hover-pop:hover i {
+        transform: scale(1.3);
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pulse {
+        animation: pulse-anim 2s infinite;
+    }
+
+    @keyframes pulse-anim {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .bounce {
+        animation: bounce-anim 2s infinite;
+    }
+
+    @keyframes bounce-anim {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40% {
+            transform: translateY(-20px);
+        }
+
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+</style>
+
+<script>
+    function toggleBookmark(topicId) {
+        fetch(`/study/topics/${topicId}/bookmark`, { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+                const icon = document.getElementById('bookmark-icon');
+                if (data.bookmarked) {
+                    icon.className = 'fas fa-heart text-danger fs-4';
+                    showToast('Topic added to bookmarks!', 'danger');
+                } else {
+                    icon.className = 'far fa-heart text-danger fs-4';
+                    showToast('Topic removed from bookmarks', 'secondary');
+                }
+            });
+    }
+</script>
