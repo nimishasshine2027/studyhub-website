@@ -2,25 +2,25 @@
     <div class="col-md-3">
         <div class="glass-panel p-4 text-center border-bottom border-4 border-primary">
             <h6 class="text-muted text-uppercase small fw-bold mb-2">Active Students</h6>
-            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.users %>">0</h2>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= (locals.stats || {}).users || 0 %>">0</h2>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-4 text-center border-bottom border-4 border-secondary">
             <h6 class="text-muted text-uppercase small fw-bold mb-2">Total Subjects</h6>
-            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.subjects %>">0</h2>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= (locals.stats || {}).subjects || 0 %>">0</h2>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-4 text-center border-bottom border-4 border-accent">
             <h6 class="text-muted text-uppercase small fw-bold mb-2">Total Topics</h6>
-            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.topics %>">0</h2>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= (locals.stats || {}).topics || 0 %>">0</h2>
         </div>
     </div>
     <div class="col-md-3">
         <div class="glass-panel p-4 text-center border-bottom border-4 border-success">
             <h6 class="text-muted text-uppercase small fw-bold mb-2">Resources</h6>
-            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= stats.resources %>">0</h2>
+            <h2 class="outfit fw-bold mb-0 counter" data-target="<%= (locals.stats || {}).resources || 0 %>">0</h2>
         </div>
     </div>
 </div>
@@ -62,7 +62,7 @@
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Belongs to</label>
                     <select name="subject_id" class="form-select rounded-pill px-4" required>
-                        <% subjects.forEach(s=> { %>
+                        <% (locals.subjects || []).forEach(s=> { %>
                             <option value="<%= s.id %>">
                                 <%= s.name %>
                             </option>
@@ -97,7 +97,7 @@
             <h5 class="outfit fw-bold mb-4 d-flex justify-content-between">
                 <span><i class="fas fa-list text-accent me-2"></i>Subject Library</span>
                 <span class="badge bg-primary rounded-pill small">
-                    <%= subjects.length %> Total
+                    <%= (locals.subjects || []).length %> Total
                 </span>
             </h5>
             <div class="table-responsive">
@@ -112,7 +112,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-main">
-                        <% subjects.forEach(s=> { %>
+                        <% (locals.subjects || []).forEach(s=> { %>
                             <tr class="border-bottom border-light">
                                 <td class="font-monospace">#SUB-<%= s.id %>
                                 </td>

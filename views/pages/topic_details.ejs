@@ -1,11 +1,12 @@
 <nav aria-label="breadcrumb" class="mb-5 reveal">
     <ol class="breadcrumb glass-panel p-3 px-4 rounded-pill">
         <li class="breadcrumb-item"><a href="/study/subjects" class="text-decoration-none">Subjects</a></li>
-        <li class="breadcrumb-item"><a href="/study/subjects/<%= topic.subject_id %>" class="text-decoration-none">
-                <%= topic.subject_name %>
+        <li class="breadcrumb-item"><a href="/study/subjects/<%= (locals.topic || {}).subject_id %>"
+                class="text-decoration-none">
+                <%= (locals.topic || {}).subject_name %>
             </a></li>
         <li class="breadcrumb-item active fw-bold text-primary" aria-current="page">
-            <%= topic.name %>
+            <%= (locals.topic || {}).name %>
         </li>
     </ol>
 </nav>
@@ -15,17 +16,18 @@
         <div class="glass-panel p-5 mb-5 reveal">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-4 mb-4">
                 <div>
-                    <span class="badge badge-<%= topic.difficulty %> rounded-pill px-4 py-2 mb-3 shadow-sm">
+                    <span
+                        class="badge badge-<%= (locals.topic || {}).difficulty %> rounded-pill px-4 py-2 mb-3 shadow-sm">
                         <i class="fas fa-signal me-2"></i>
-                        <%= topic.difficulty.toUpperCase() %> LEVEL
+                        <%= ((locals.topic || {}).difficulty || '' ).toUpperCase() %> LEVEL
                     </span>
                     <h1 class="display-4 fw-bold outfit mb-2">
-                        <%= topic.name %>
+                        <%= (locals.topic || {}).name %>
                     </h1>
                     <div class="d-flex gap-3 align-items-center">
                         <div class="text-warning fs-5">
                             <i class="fas fa-star"></i>
-                            <%= avgRating %> <span class="text-muted small fw-normal">/ 5.0</span>
+                            <%= locals.avgRating || '0.0' %> <span class="text-muted small fw-normal">/ 5.0</span>
                         </div>
                         <div class="vr"></div>
                         <div class="text-muted small"><i class="fas fa-users me-1"></i> 1.2k Students Learned</div>
@@ -33,10 +35,11 @@
                 </div>
                 <div class="d-flex gap-3">
                     <button class="btn btn-glass p-3 rounded-circle shadow-sm hover-pop"
-                        onclick="toggleBookmark(<%= topic.id %>)">
-                        <i id="bookmark-icon" class="<%= isBookmarked ? 'fas' : 'far' %> fa-heart text-danger fs-4"></i>
+                        onclick="toggleBookmark(<%= (locals.topic || {}).id %>)">
+                        <i id="bookmark-icon"
+                            class="<%= locals.isBookmarked ? 'fas' : 'far' %> fa-heart text-danger fs-4"></i>
                     </button>
-                    <a href="/study/topics/<%= topic.id %>/revision" target="_blank"
+                    <a href="/study/topics/<%= (locals.topic || {}).id %>/revision" target="_blank"
                         class="btn btn-primary d-flex align-items-center px-4 shadow-lg">
                         <i class="fas fa-bolt me-2 pulse"></i>Quick Revision
                     </a>
@@ -47,13 +50,13 @@
                 <h5 class="outfit fw-bold mb-3"><i class="fas fa-quote-left me-2 opacity-50"></i>Conceptual Overview
                 </h5>
                 <p class="text-muted lead fs-6 mb-0">
-                    <%= topic.description %>
+                    <%= (locals.topic || {}).description %>
                 </p>
             </div>
 
             <h4 class="outfit fw-bold mb-4">Curated Resources</h4>
             <div class="row g-3 reveal">
-                <% resources.forEach(res=> { %>
+                <% (locals.resources || []).forEach(res=> { %>
                     <div class="col-md-6">
                         <a href="<%= res.url %>" target="_blank" class="text-decoration-none">
                             <div class="glass-panel p-4 h-100 hover-lift-glow">
@@ -104,13 +107,13 @@
             </div>
 
             <div class="ratings-list reveal">
-                <% ratings.forEach(rating=> { %>
+                <% (locals.ratings || []).forEach(rating=> { %>
                     <div class="glass-panel p-4 mb-3 border-0 shadow-sm border-bottom border-3 border-primary-subtle">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="d-flex align-items-center gap-2">
                                 <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
                                     style="width: 32px; height: 32px;">
-                                    <%= rating.user_name.charAt(0) %>
+                                    <%= (rating.user_name || '?' ).charAt(0) %>
                                 </div>
                                 <span class="fw-bold">
                                     <%= rating.user_name %>
@@ -136,7 +139,7 @@
             <div class="glass-panel p-4 mb-4 reveal">
                 <h5 class="outfit fw-bold mb-4"><i class="fas fa-project-diagram text-primary me-2"></i>Next Up</h5>
                 <div class="list-group list-group-flush gap-3">
-                    <% recommendations.forEach(rec=> { %>
+                    <% (locals.recommendations || []).forEach(rec=> { %>
                         <a href="/study/topics/<%= rec.id %>"
                             class="list-group-item list-group-item-action border-0 glass-panel p-3 hover-lift-glow">
                             <h6 class="mb-1 fw-bold">

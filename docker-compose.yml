@@ -7,8 +7,15 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=production
       - SESSION_SECRET=studyhub_prod_secret
       - DB_PATH=./database.sqlite
+      - PORT=5000
     restart: always
+    healthcheck:
+      test: [ "CMD", "node", "-e", "require('http').get('http://localhost:5000/health', (res) => { if (res.statusCode === 200) process.exit(0); else process.exit(1); })" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3

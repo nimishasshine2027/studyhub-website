@@ -12,7 +12,7 @@
 </div>
 
 <div class="row reveal">
-    <% subjects.forEach((subject, index)=> { %>
+    <% (locals.subjects || []).forEach((subject, index)=> { %>
         <%- include('../partials/card', { type: 'subject' , item: subject, delay: index * 100 }) %>
             <% }) %>
 </div>
