@@ -60,3 +60,20 @@ Clone the repo, `npm install`, and run `npm test`
 [codecov-url]: https://app.codecov.io/gh/ljharb/side-channel-list/
 [actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/side-channel-list
 [actions-url]: https://github.com/ljharb/side-channel-list/actions
+## Deployment
+
+This project includes a GitHub Actions workflow for automated deployment to an Ubuntu server via SSH.
+
+### Prerequisites
+1. An Ubuntu server with Docker and Docker Compose installed.
+2. Code already cloned on the server in a known path.
+
+### GitHub Secrets Setup
+To enable automated deployments, add the following secrets to your GitHub Repository (**Settings > Secrets and variables > Actions**):
+
+| Secret Name | Description |
+|-------------|-------------|
+| `SSH_HOST` | Server IP or Domain |
+| `SSH_USERNAME` | SSH username (e.g., `ubuntu`) |
+| `SSH_PRIVATE_KEY` | Contents of your private SSH key |
+| `DEPLOY_PATH` | Full path to the project on the server (e.g., `/var/www/studyhub`) |
