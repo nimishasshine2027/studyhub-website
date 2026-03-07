@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Study Hub | Study Hub</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="public/css/style.css">
+
+    <style>
+        .reveal-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .theme-ripple {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--bg-main);
+            border-radius: 50%;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: ripple-effect 1s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-effect {
+            to {
+                width: 300vmax;
+                height: 300vmax;
+                opacity: 0;
+            }
+        }
+
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .my-theme-switch {
+            width: 3rem !important;
+            height: 1.5rem !important;
+            cursor: pointer;
+        }
+
+        .active.fw-bold {
+            position: relative;
+            color: var(--primary) !important;
+        }
+
+        .active.fw-bold::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 30%;
+            width: 40%;
+            height: 3px;
+            background: var(--vibrant-gradient);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-light" data-theme="light">
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm glass-nav py-3">
+        <div class="container border-0">
+            <a class="navbar-brand fw-bold fs-3 text-gradient outfit" href="index.html">
+                <i class="fas fa-brain me-2"></i>Study Hub
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-5">
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 active fw-bold" href="index.html">Explore</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3" href="#">Subjects</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Theme Toggle -->
+                    <div class="form-check form-switch mb-0">
+                        <input class="form-check-input my-theme-switch" type="checkbox" id="theme-toggle">
+                        <label class="form-check-label" for="theme-toggle">
+                            <i class="fas fa-moon text-muted small"></i>
+                        </label>
+                    </div>
+                    <a href="#" class="nav-link fw-bold text-primary d-none d-sm-block">Login</a>
+                    <a href="#" class="btn btn-primary rounded-pill px-4 shadow">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5 min-vh-100">
+        <div class="hero-section position-relative py-5 mb-5 reveal">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <h6 class="text-primary fw-bold text-uppercase mb-3 tracking-widest"><i
+                            class="fas fa-sparkles me-2"></i>
+                        The Future of Learning</h6>
+                    <h1 class="display-3 fw-bold outfit mb-4 lh-tight">
+                        Level Up with <span class="text-gradient">Structured</span> Knowledge
+                    </h1>
+                    <p class="lead text-muted mb-5 typing-text outfit"
+                        data-text="Curated roadmaps, smart tracking, and vibrant resources for every student.">
+                        <!-- Typed text appears here -->
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <a href="#" class="btn btn-primary btn-lg px-5 shadow-lg">
+                            <i class="fas fa-rocket me-2"></i>Explore Roadmaps
+                        </a>
+                        <a href="#" class="btn btn-outline-secondary btn-lg px-5 glass-panel fw-bold">
+                            Join Path
+                        </a>
+                    </div>
+
+                    <div class="d-flex gap-5 mt-4 reveal" data-reveal-delay="400">
+                        <div>
+                            <h3 class="outfit counter mb-0" data-target="150">0</h3>
+                            <p class="small text-muted">Study Resources</p>
+                        </div>
+                        <div class="border-start ps-4">
+                            <h3 class="outfit counter mb-0" data-target="45">0</h3>
+                            <p class="small text-muted">Expert Roadmaps</p>
+                        </div>
+                        <div class="border-start ps-4">
+                            <h3 class="outfit counter mb-0" data-target="1200">0</h3>
+                            <p class="small text-muted">Students Enrolled</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 d-none d-lg-block position-relative">
+                    <div class="hero-circles">
+                        <div class="circle circle-lg"></div>
+                        <div class="circle circle-md"></div>
+                        <div class="circle circle-sm"></div>
+                    </div>
+                    <div class="glass-panel p-4 position-relative z-index-2 floating-anim">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-4 me-3">
+                                <i class="fas fa-graduation-cap text-primary fs-3"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">Study Smart</h5>
+                                <small class="text-muted">Daily Target: 2h 30m</small>
+                            </div>
+                        </div>
+                        <div class="progress rounded-pill bg-light mb-2" style="height: 10px;">
+                            <div class="progress-bar bg-gradient" style="width: 75%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span class="text-muted">75% Complete</span>
+                            <span class="fw-bold text-primary">🔥 12 Day Streak</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-icons">
+                        <i class="fas fa-laptop-code icon-1"></i>
+                        <i class="fas fa-book-open icon-2"></i>
+                        <i class="fas fa-brain icon-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="mb-5 py-5 reveal">
+            <div class="text-center mb-5">
+                <h2 class="outfit fw-bold text-gradient display-5">Why Choose Study Hub?</h2>
+                <p class="text-muted">We provide everything you need to succeed in your academic journey.</p>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="glass-panel p-5 h-100 hover-glow">
+                        <div class="fs-1 text-primary mb-3"><i class="fas fa-map-signs"></i></div>
+                        <h4 class="outfit">Curated Paths</h4>
+                        <p class="text-muted small">No more guessing what to learn next. Follow optimized roadmap steps.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-panel p-5 h-100 hover-glow">
+                        <div class="fs-1 text-secondary mb-3"><i class="fas fa-chart-pie"></i></div>
+                        <h4 class="outfit">Progress Loop</h4>
+                        <p class="text-muted small">Visual indicators and dashboard metrics keep you on track 24/7.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-panel p-5 h-100 hover-glow">
+                        <div class="fs-1 text-accent mb-3"><i class="fas fa-users"></i></div>
+                        <h4 class="outfit">Community Driven</h4>
+                        <p class="text-muted small">Access top-rated resources shared by the best students worldwide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer mt-auto py-5 bg-white border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-gradient">Study Hub</h5>
+                    <p class="text-muted">Empowering students with structured learning paths and curated resources.</p>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="fw-bold">Explore</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-muted">Browse Subjects</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Join Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="fw-bold">Connect</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-muted fs-5"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-muted fs-5"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-muted fs-5"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2026 Study Hub Platform. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="public/js/animations.js"></script>
+</body>
+
+</html>
