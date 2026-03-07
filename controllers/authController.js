@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { db } = require('../database');
+const StudentController = require('./studentController');
 
 const AuthController = {
     getLogin: (req, res) => {
@@ -15,6 +16,7 @@ const AuthController = {
             req.session.userId = user.id;
             req.session.role = user.role;
             req.session.user = { id: user.id, name: user.name, role: user.role };
+            StudentController.updateStreak(user.id);
             return res.redirect('/dashboard');
         }
 

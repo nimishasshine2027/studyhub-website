@@ -163,7 +163,8 @@
                     </div>
                     <h5 class="outfit fw-bold">Finished learning?</h5>
                     <p class="text-muted small mb-4">Mark this topic as complete to level up your subject streak!</p>
-                    <button class="btn btn-primary w-100 rounded-pill py-3 shadow-lg fw-bold">MARK AS COMPLETED</button>
+                    <button id="complete-btn" class="btn btn-primary w-100 rounded-pill py-3 shadow-lg fw-bold"
+                        onclick="markCompleted(<%= (locals.topic || {}).id %>)">MARK AS COMPLETED</button>
                 </div>
             </div>
         </div>
@@ -239,6 +240,32 @@
                     icon.className = 'far fa-heart text-danger fs-4';
                     showToast('Topic removed from bookmarks', 'secondary');
                 }
+            });
+    }
+
+    function markCompleted(topicId) {
+        const btn = document.getElementById('complete-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Completing...';
+
+        fetch(`/study/topics/${topicId}/complete`, { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    btn.innerHTML = '<i class="fas fa-check-circle me-2"></i>COMPLETED';
+                    btn.classList.add('bg-success');
+                    btn.classList.remove('bg-primary');
+                    showToast('Topic marked as completed!', 'success');
+                } else {
+                    btn.disabled = false;
+                    btn.innerHTML = 'MARK AS COMPLETED';
+                    showToast('Error marking topic. Please login.', 'danger');
+                }
+            })
+            .catch(() => {
+                btn.disabled = false;
+                btn.innerHTML = 'MARK AS COMPLETED';
+                showToast('Something went wrong.', 'danger');
             });
     }
 </script>

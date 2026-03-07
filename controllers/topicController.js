@@ -59,6 +59,22 @@ const TopicController = {
         if (!topic) return res.status(404).render('pages/error', { message: 'Topic not found' });
 
         res.render('pages/revision', { title: `Revision: ${topic.name}`, topic, layout: false });
+    },
+
+    markCompleted: (req, res) => {
+        if (!req.session.userId) return res.status(401).json({ error: 'Unauthorized' });
+        const { id } = req.params;
+        const userId = req.session.userId;
+
+        const exists = db.prepare('SELECT id FROM study_progress WHERE user_id = ? AND topic_id = ?').get(userId, id);
+
+        if (exists) {
+            db.prepare('UPDATE study_progress SET status = ?, last_accessed = CURRENT_TIMESTAMP WHERE id = ?').run('completed', exists.id);
+        } else {
+            db.prepare('INSERT INTO study_progress (user_id, topic_id, status) VALUES (?, ?, ?)').run(userId, id, 'completed');
+        }
+
+        res.json({ success: true, status: 'completed' });
     }
 };
 

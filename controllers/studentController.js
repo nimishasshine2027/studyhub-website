@@ -27,7 +27,7 @@ const StudentController = {
         `).all(userId);
 
         const totalTopics = db.prepare('SELECT COUNT(*) as count FROM topics').get().count;
-        const completedTopics = db.prepare('SELECT COUNT(*) as count FROM study_progress WHERE user_id = ? AND status = "completed"').get(userId).count;
+        const completedTopics = db.prepare(`SELECT COUNT(*) as count FROM study_progress WHERE user_id = ? AND status = 'completed'`).get(userId).count;
         const progressPercent = totalTopics > 0 ? Math.round((completedTopics / totalTopics) * 100) : 0;
 
         res.render('pages/dashboard', {

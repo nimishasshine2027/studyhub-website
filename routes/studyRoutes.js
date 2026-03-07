@@ -7,6 +7,7 @@ router.get('/subjects', SubjectController.getAllSubjects);
 router.get('/subjects/:id', SubjectController.getSubjectDetails);
 router.get('/topics/:id', TopicController.getTopicDetails);
 router.post('/topics/:id/bookmark', TopicController.toggleBookmark);
+router.post('/topics/:id/complete', TopicController.markCompleted);
 router.get('/topics/:id/revision', TopicController.getRevisionMode);
 
 module.exports = router;
