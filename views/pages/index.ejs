@@ -1,0 +1,195 @@
+<div class="hero-section position-relative py-5 mb-5 reveal">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+            <h6 class="text-primary fw-bold text-uppercase mb-3 tracking-widest"><i class="fas fa-sparkles me-2"></i>
+                The Future of Learning</h6>
+            <h1 class="display-3 fw-bold outfit mb-4 lh-tight">
+                Level Up with <span class="text-gradient">Structured</span> Knowledge
+            </h1>
+            <p class="lead text-muted mb-5 typing-text outfit"
+                data-text="Curated roadmaps, smart tracking, and vibrant resources for every student.">
+                <!-- Typed text appears here -->
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mb-5">
+                <a href="/study/subjects" class="btn btn-primary btn-lg px-5 shadow-lg">
+                    <i class="fas fa-rocket me-2"></i>Explore Roadmaps
+                </a>
+                <a href="/auth/register" class="btn btn-outline-secondary btn-lg px-5 glass-panel fw-bold">
+                    Join Path
+                </a>
+            </div>
+
+            <div class="d-flex gap-5 mt-4 reveal" data-reveal-delay="400">
+                <div>
+                    <h3 class="outfit counter mb-0" data-target="150">0</h3>
+                    <p class="small text-muted">Study Resources</p>
+                </div>
+                <div class="border-start ps-4">
+                    <h3 class="outfit counter mb-0" data-target="45">0</h3>
+                    <p class="small text-muted">Expert Roadmaps</p>
+                </div>
+                <div class="border-start ps-4">
+                    <h3 class="outfit counter mb-0" data-target="1200">0</h3>
+                    <p class="small text-muted">Students Enrolled</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 d-none d-lg-block position-relative">
+            <div class="hero-circles">
+                <div class="circle circle-lg"></div>
+                <div class="circle circle-md"></div>
+                <div class="circle circle-sm"></div>
+            </div>
+            <div class="glass-panel p-4 position-relative z-index-2 floating-anim">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-4 me-3">
+                        <i class="fas fa-graduation-cap text-primary fs-3"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Study Smart</h5>
+                        <small class="text-muted">Daily Target: 2h 30m</small>
+                    </div>
+                </div>
+                <div class="progress rounded-pill bg-light mb-2" style="height: 10px;">
+                    <div class="progress-bar bg-gradient" style="width: 75%"></div>
+                </div>
+                <div class="d-flex justify-content-between small">
+                    <span class="text-muted">75% Complete</span>
+                    <span class="fw-bold text-primary">🔥 12 Day Streak</span>
+                </div>
+            </div>
+
+            <div class="floating-icons">
+                <i class="fas fa-laptop-code icon-1"></i>
+                <i class="fas fa-book-open icon-2"></i>
+                <i class="fas fa-brain icon-3"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="mb-5 py-5 reveal">
+    <div class="text-center mb-5">
+        <h2 class="outfit fw-bold text-gradient display-5">Why Choose Study Hub?</h2>
+        <p class="text-muted">We provide everything you need to succeed in your academic journey.</p>
+    </div>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="glass-panel p-5 h-100 hover-glow">
+                <div class="fs-1 text-primary mb-3"><i class="fas fa-map-signs"></i></div>
+                <h4 class="outfit">Curated Paths</h4>
+                <p class="text-muted small">No more guessing what to learn next. Follow optimized roadmap steps.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-panel p-5 h-100 hover-glow">
+                <div class="fs-1 text-secondary mb-3"><i class="fas fa-chart-pie"></i></div>
+                <h4 class="outfit">Progress Loop</h4>
+                <p class="text-muted small">Visual indicators and dashboard metrics keep you on track 24/7.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-panel p-5 h-100 hover-glow">
+                <div class="fs-1 text-accent mb-3"><i class="fas fa-users"></i></div>
+                <h4 class="outfit">Community Driven</h4>
+                <p class="text-muted small">Access top-rated resources shared by the best students worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-circles {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+    }
+
+    .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(99, 102, 241, 0.1);
+        border-radius: 50%;
+    }
+
+    .circle-lg {
+        width: 500px;
+        height: 500px;
+    }
+
+    .circle-md {
+        width: 350px;
+        height: 350px;
+    }
+
+    .circle-sm {
+        width: 200px;
+        height: 200px;
+    }
+
+    .floating-anim {
+        animation: floating 5s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-30px);
+        }
+    }
+
+    .floating-icons i {
+        position: absolute;
+        font-size: 2rem;
+        color: var(--primary);
+        opacity: 0.3;
+        animation: float-icon 8s ease-in-out infinite;
+    }
+
+    .icon-1 {
+        top: 0;
+        left: 0;
+        animation-delay: 0s;
+    }
+
+    .icon-2 {
+        bottom: 0;
+        right: 10%;
+        animation-delay: -3s;
+    }
+
+    .icon-3 {
+        top: 40%;
+        left: -20%;
+        animation-delay: -6s;
+    }
+
+    @keyframes float-icon {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-40px) rotate(15deg);
+        }
+    }
+
+    .hover-glow:hover {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    }
+</style>

@@ -59,7 +59,7 @@ app.use('/study', studyRoutes);
 app.use('/', studentRoutes);
 app.use('/admin', adminRoutes);
 
-app.get('/', (req, res) => res.render('pages/landing', { title: 'Welcome to Study Hub' }));
+app.get('/', (req, res) => res.render('pages/index', { title: 'Welcome to Study Hub' }));
 app.get('/health', (req, res) => res.json({ status: 'UP', timestamp: new Date().toISOString() }));
 
 app.post('/theme', (req, res) => {
